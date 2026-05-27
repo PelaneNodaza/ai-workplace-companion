@@ -12,6 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app.index'
 import { Route as ApiAiRouteImport } from './routes/api/ai'
+import { Route as AppTasksRouteImport } from './routes/_app.tasks'
+import { Route as AppResearchRouteImport } from './routes/_app.research'
+import { Route as AppMeetingsRouteImport } from './routes/_app.meetings'
+import { Route as AppEmailRouteImport } from './routes/_app.email'
 
 const AppRoute = AppRouteImport.update({
   id: '/_app',
@@ -27,27 +31,67 @@ const ApiAiRoute = ApiAiRouteImport.update({
   path: '/api/ai',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppTasksRoute = AppTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppResearchRoute = AppResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMeetingsRoute = AppMeetingsRouteImport.update({
+  id: '/meetings',
+  path: '/meetings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEmailRoute = AppEmailRouteImport.update({
+  id: '/email',
+  path: '/email',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/email': typeof AppEmailRoute
+  '/meetings': typeof AppMeetingsRoute
+  '/research': typeof AppResearchRoute
+  '/tasks': typeof AppTasksRoute
   '/api/ai': typeof ApiAiRoute
 }
 export interface FileRoutesByTo {
+  '/email': typeof AppEmailRoute
+  '/meetings': typeof AppMeetingsRoute
+  '/research': typeof AppResearchRoute
+  '/tasks': typeof AppTasksRoute
   '/api/ai': typeof ApiAiRoute
   '/': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
+  '/_app/email': typeof AppEmailRoute
+  '/_app/meetings': typeof AppMeetingsRoute
+  '/_app/research': typeof AppResearchRoute
+  '/_app/tasks': typeof AppTasksRoute
   '/api/ai': typeof ApiAiRoute
   '/_app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/ai'
+  fullPaths: '/' | '/email' | '/meetings' | '/research' | '/tasks' | '/api/ai'
   fileRoutesByTo: FileRoutesByTo
-  to: '/api/ai' | '/'
-  id: '__root__' | '/_app' | '/api/ai' | '/_app/'
+  to: '/email' | '/meetings' | '/research' | '/tasks' | '/api/ai' | '/'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/_app/email'
+    | '/_app/meetings'
+    | '/_app/research'
+    | '/_app/tasks'
+    | '/api/ai'
+    | '/_app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,14 +122,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/tasks': {
+      id: '/_app/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AppTasksRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/research': {
+      id: '/_app/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof AppResearchRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/meetings': {
+      id: '/_app/meetings'
+      path: '/meetings'
+      fullPath: '/meetings'
+      preLoaderRoute: typeof AppMeetingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/email': {
+      id: '/_app/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof AppEmailRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppEmailRoute: typeof AppEmailRoute
+  AppMeetingsRoute: typeof AppMeetingsRoute
+  AppResearchRoute: typeof AppResearchRoute
+  AppTasksRoute: typeof AppTasksRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppEmailRoute: AppEmailRoute,
+  AppMeetingsRoute: AppMeetingsRoute,
+  AppResearchRoute: AppResearchRoute,
+  AppTasksRoute: AppTasksRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
@@ -98,3 +178,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
