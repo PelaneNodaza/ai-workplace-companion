@@ -125,7 +125,7 @@ https://pelanenodazaai-productivity-assistant.lovable.app/
 ## Screenshots
 
 ### Dashboard
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](https://github.com/PelaneNodaza/ai-workplace-companion/blob/main/Screenshots/Dashboard.png)
 
 ### Email Generator
 ![Email Generator](./screenshots/email.png)
