@@ -132,3 +132,30 @@ https://pelanenodazaai-productivity-assistant.lovable.app/
 
 ### Meeting Summarizer
 ![Meeting Notes](https://github.com/PelaneNodaza/ai-workplace-companion/blob/main/Screenshots/Meeting%20Notes%20Summarizer)
+
+## Prompt Engineering Approach
+
+Each feature uses structured prompts to guide the AI output. Prompts include:
+
+- Clear role definition (e.g., “You are a professional assistant…”)
+- Specific task instructions
+- Output format requirements
+- Tone control (formal, friendly, persuasive)
+- Context-based inputs from the user
+
+This ensures consistent, accurate, and useful AI responses.
+
+## Future Improvements
+
+- Add user login and saved history
+- Improve AI personalization based on user behavior
+- Add voice input for chatbot interaction
+- Integrate real-time data sources
+- Expand task planner with calendar sync
+
+  ## How It Works
+
+1. User selects a tool from the dashboard  
+2. Input is sent to an AI prompt engine  
+3. AI generates structured output  
+4. User can edit or reuse results  
