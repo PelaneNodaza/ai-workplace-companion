@@ -128,7 +128,7 @@ https://pelanenodazaai-productivity-assistant.lovable.app/
 ![Dashboard](https://github.com/PelaneNodaza/ai-workplace-companion/blob/main/Screenshots/Dashboard.png)
 
 ### Email Generator
-![Email Generator](https://github.com/PelaneNodaza/ai-workplace-companion/blob/main/Screenshots/Meeting%20Notes%20Generator.png?raw=true)
+![Email Generator](https://github.com/PelaneNodaza/ai-workplace-companion/blob/main/Screenshots/Smart%20Email%20Generator.png)
 
 ### Meeting Summarizer
 ![Meeting Notes](./screenshots/meeting.png)
